@@ -7,7 +7,7 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./manage-products.component.scss']
 })
 export class ManageProductsComponent implements OnInit {
-  @ViewChild('id') id!: ElementRef;
+  @ViewChild('prodId') id!: ElementRef;
   @ViewChild('name') name!: ElementRef;
   @ViewChild('price') price!: ElementRef;
 
@@ -30,10 +30,10 @@ export class ManageProductsComponent implements OnInit {
 
   }
 
-  onAddProduct(id: any, name: any, price: any) {
+  onAddProduct(prodId: any, name: any, price: any) {
     if (this.editMode) {
       this.products[this.editIndex] = {
-        id: id.value,
+        id: prodId.value,
         name: name.value,
         price: price.value
       }
@@ -43,12 +43,12 @@ export class ManageProductsComponent implements OnInit {
       this.price.nativeElement.value = '';
     } else {
       this.products.push({
-        id: id.value,
+        id: prodId.value,
         name: name.value,
         price: price.value
       })
 
-      id.value = '',
+      prodId.value = '',
         name.value = '',
         price.value = ''
     }
