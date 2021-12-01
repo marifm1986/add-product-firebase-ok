@@ -1,0 +1,56 @@
+<div class="panel_container row">
+  <h2>Add Products</h2>
+  <form class="col-md-6 g-3 needs-validation" novalidate>
+    <div class="col-md-4">
+      <label for="id" class="form-label">Product ID</label>
+      <input type="text" class="form-control" id="id" #id >
+      
+    </div>
+    <div class="col-md-4">
+      <label for="name" class="form-label">Product Name</label>
+      <input type="text" class="form-control" id="name" #name >
+      
+    </div>
+    <div class="col-md-4">
+      <label for="price" class="form-label">Product Price</label>
+      <input type="text" class="form-control" id="price" #price >
+      
+    </div>
+    <div class="col-12 mt-2">
+      <button class="btn btn-primary" type="button" (click)="onAddProduct(id, name, price)">{{editMode? 'Update':'Save Product'}}</button>
+    </div>
+  </form>
+  <div class="col-md-6">
+    <table class="table table-hover">
+      <thead class="table-dark">
+      <tr><th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col" class="text-end">Price</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Edit</th>
+    </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of products; index as i" (dblclick)="onEdit(i, data)" [class.table-active]="data === isSelected">
+          <th scope="row">{{i}}</th>
+          <td>{{data.id}}</td>
+          <td>{{data.name}}</td>
+          <td class="text-end">{{data.price}}</td>
+          <td>
+            <a href="javascript:viod(0)" (click)="onDelete(i)">Delete</a>
+          </td>
+          <td>
+            <a href="javascript:viod(0)" (click)="onEdit(i, data)">Edit</a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Total</td>
+          <td class="text-end">{{totalPrice}}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
