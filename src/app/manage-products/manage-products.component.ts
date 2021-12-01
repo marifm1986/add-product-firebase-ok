@@ -67,9 +67,13 @@ export class ManageProductsComponent implements OnInit {
       (res) => {
         const data = JSON.stringify(res)
         this.products = JSON.parse(data)
+        this.totalPrice = this.products.reduce((acc, val) => acc += +val.price, 0);
+        console.log(this.totalPrice);
       },
       (err) => console.log(err)
     )
+
+   
   }
 
 
