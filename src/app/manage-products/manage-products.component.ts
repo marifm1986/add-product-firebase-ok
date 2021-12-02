@@ -69,11 +69,12 @@ export class ManageProductsComponent implements OnInit {
         this.products = JSON.parse(data)
         this.totalPrice = this.products.reduce((acc, val) => acc += +val.price, 0);
         console.log(this.totalPrice);
+        
       },
       (err) => console.log(err)
     )
 
-   
+
   }
 
 
@@ -81,7 +82,7 @@ export class ManageProductsComponent implements OnInit {
   onEdit(index: number, data: any) {
     this.editMode = true;
     this.editIndex = index;
-    
+
     console.log(this.products[index]);
     this.id.nativeElement.value = this.products[index].id;
     this.name.nativeElement.value = this.products[index].name;
