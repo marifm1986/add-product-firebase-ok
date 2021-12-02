@@ -8,6 +8,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
+import { ManageUserComponent } from './manage-user/manage-user.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,16 @@ import { ProductService } from './services/product.service';
     ManageProductsComponent,
     HeaderComponent,
     HomeComponent,
+    ManageUserComponent,
+
     
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

@@ -1,0 +1,53 @@
+<div class="panel_container row gap-5">
+    <h2>Manager Users</h2>
+    <div class="card col-md-5">
+        <form class=" g-3 needs-validation" #userForm="ngForm" (ngSubmit)="onAddUser(userForm.value)">
+            <div class="col-md-12">
+                <label for="userName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="userName" name="name" ngModel required>
+
+            </div>
+            <div class="col-md-12">
+                <label for="tech" class="form-label">Technology</label>
+                <input type="text" class="form-control" id="tech" name="tech" ngModel>
+
+            </div>
+
+            <div class="col-12 mt-2">
+                <button class="btn {{editMode? 'btn-primary':'btn-success'}}" type="submit"
+                   >{{editMode? 'Update User':'Save User'}}</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 card p-0">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Technology</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let data of products; index as i" (dblclick)="onEdit(i, data)"
+                    [class.table-active]="data === isSelected">
+                    <td>{{data.name}}</td>
+                    <td>{{data.tech}}</td>
+                    
+                    <td>
+                        <a href="javascript:viod(0)" (click)="onDelete(i)">Delete</a>
+                    </td>
+                    <td>
+                        <a href="javascript:viod(0)" (click)="onEdit(i, data)">Edit</a>
+                    </td>
+                </tr> -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Total</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

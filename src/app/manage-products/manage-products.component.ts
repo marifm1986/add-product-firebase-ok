@@ -75,12 +75,6 @@ export class ManageProductsComponent implements OnInit {
     this.totalPrice = this.products.reduce((acc, val) => acc += +val.price, 0);
   }
 
-
-  // get 
-
-
-
-
   onEdit(index: number, data: any) {
     this.editMode = true;
     this.editIndex = index;
