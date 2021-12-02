@@ -22,11 +22,6 @@ export class ManageProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-    // get total price
-    this.getTotal();
-
-
-    // get total price sum
 
   }
 
@@ -56,7 +51,9 @@ export class ManageProductsComponent implements OnInit {
   }
   onSaveProduct() {
     this.service.saveProduct(this.products).subscribe(
-      (res) => console.log(res),
+      (res) => {console.log(res)
+        this.getTotalPrice();
+      },
       (err) => console.log(err)
     )
 
@@ -65,17 +62,22 @@ export class ManageProductsComponent implements OnInit {
   getProducts() {
     this.service.getProducts().subscribe(
       (res) => {
-        const data = JSON.stringify(res)
-        this.products = JSON.parse(data)
-        this.totalPrice = this.products.reduce((acc, val) => acc += +val.price, 0);
-        console.log(this.totalPrice);
-        
+        const data = JSON.stringify(res);
+        this.products = JSON.parse(data);
+        this.getTotalPrice();
       },
       (err) => console.log(err)
     )
 
 
   }
+  getTotalPrice(){
+    this.totalPrice = this.products.reduce((acc, val) => acc += +val.price, 0);
+  }
+
+
+  // get 
+
 
 
 
@@ -88,19 +90,15 @@ export class ManageProductsComponent implements OnInit {
     this.name.nativeElement.value = this.products[index].name;
     this.price.nativeElement.value = this.products[index].price;
     this.isSelected = data;
+    this.getTotalPrice();
   }
   onDelete(id: number) {
     if (confirm("Are you sure to delete this product?")) {
 
       this.products.splice(id, 1)
       this.onSaveProduct();
+      this.getTotalPrice();
     }
 
-  }
-
-  getTotal() {
-    //  get reduce price
-    const total = this.products.reduce((acc, val) => acc += val.price, 0);
-    this.totalPrice = total;
   }
 }
