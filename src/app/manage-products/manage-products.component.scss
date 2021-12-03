@@ -6,3 +6,19 @@
 .panel_container{
     padding: 1rem;
 }
+
+.table>thead {
+    vertical-align: bottom;
+    position: sticky;
+    top: 0;
+}
+.card{
+    max-height: calc(100vh - 14rem);
+    overflow: auto;
+}
+
+tfoot{
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+}
