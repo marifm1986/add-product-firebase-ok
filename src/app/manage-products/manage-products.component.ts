@@ -22,12 +22,6 @@ export class ManageProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-    // get total price
-    this.getTotal();
-
-
-    // get total price sum
-
   }
 
   onAddProduct(prodId: any, name: any, price: any) {
@@ -97,9 +91,4 @@ export class ManageProductsComponent implements OnInit {
 
   }
 
-  getTotal() {
-    //  get reduce price
-    const total = this.products.reduce((acc, val) => acc += val.price, 0);
-    this.totalPrice = total;
-  }
 }
