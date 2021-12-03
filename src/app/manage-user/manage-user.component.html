@@ -23,6 +23,7 @@
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Technology</th>
                     <th scope="col">Delete</th>
@@ -30,8 +31,9 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr *ngFor="let data of products; index as i" (dblclick)="onEdit(i, data)"
+                <tr *ngFor="let data of users; index as i" (dblclick)="onEdit(i, data)"
                     [class.table-active]="data === isSelected">
+                    <td>{{i+1}}</td>
                     <td>{{data.name}}</td>
                     <td>{{data.tech}}</td>
                     
@@ -41,11 +43,11 @@
                     <td>
                         <a href="javascript:viod(0)" (click)="onEdit(i, data)">Edit</a>
                     </td>
-                </tr> -->
+                </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">Total</td>
+                    <td colspan="3">Total {{users.length}}</td>
                 </tr>
             </tfoot>
         </table>
