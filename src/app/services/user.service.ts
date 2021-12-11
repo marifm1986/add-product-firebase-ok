@@ -17,7 +17,7 @@ baseUrl = 'https://amproducts-a9503-default-rtdb.firebaseio.com/users.json';
     return this._http.get<User>(this.baseUrl);
   }
 
-  deleteUser(userId: string) {
+  deleteUser(userId: number) {
     return this._http.delete(this.baseUrl + '/' + userId);
   }
 }
