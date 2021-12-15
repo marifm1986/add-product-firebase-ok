@@ -26,11 +26,17 @@ export class ManageUserComponent implements OnInit {
     this.getAllUsers();
   }
   onAddUser(userData: User) {
-    console.log(userData);
-    this.service.addUser(userData).subscribe(data => {
-      console.log(data)
-      this.getAllUsers();
-    });
+    if(this.editMode){
+      // ...
+      this.editMode = false;
+    }else{
+      console.log(userData);
+      this.service.addUser(userData).subscribe(data => {
+        console.log(data)
+        this.getAllUsers();
+      });
+    }
+    
     this.userForm.reset();
   }
 
@@ -54,10 +60,14 @@ export class ManageUserComponent implements OnInit {
 
   onEdit(userId, index) {
     this.editMode = true;
-    this.userForm.setValue({
-      name: this.users[index].name,
-      tech: this.users[index].tech
-    })
+    if(this.editMode){
+      this.userForm.setValue({
+        name: this.users[index].name,
+        tech: this.users[index].tech
+      })
+
+    }
+    
   }
 
   onDelete(userId) {

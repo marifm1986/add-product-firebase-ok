@@ -76,7 +76,6 @@ export class ManageProductsComponent implements OnInit {
   onEdit(index: number, data: any) {
     this.editMode = true;
     this.editIndex = index;
-
     console.log(this.products[index]);
     this.id.nativeElement.value = this.products[index].id;
     this.name.nativeElement.value = this.products[index].name;
