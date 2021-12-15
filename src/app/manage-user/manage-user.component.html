@@ -36,12 +36,11 @@
                     <td>{{i+1}}</td>
                     <td>{{data.name}}</td>
                     <td>{{data.tech}}</td>
-                    
                     <td>
-                        <a href="javascript:viod(0)" (click)="onDelete(data)">Delete</a>
+                        <a href="javascript:viod(0)" (click)="onDelete(data.userId)">Delete</a>
                     </td>
                     <td>
-                        <a href="javascript:viod(0)" (click)="onEdit(i, data)">Edit</a>
+                        <a href="javascript:viod(0)" (click)="onEdit(data.userId, i)">Edit</a>
                     </td>
                 </tr>
             </tbody>

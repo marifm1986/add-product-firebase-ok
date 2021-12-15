@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { User } from './user.model';
 import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-manage-user',
@@ -18,7 +19,7 @@ export class ManageUserComponent implements OnInit {
   users: any[] = []
 
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private http: HttpClient) { }
 
 
   ngOnInit(): void {
@@ -51,8 +52,20 @@ export class ManageUserComponent implements OnInit {
       })
   }
 
-  onEdit(id: number, data: any) { }
-  onDelete(data: any) { }
+  onEdit(userId, index) {
+    this.editMode = true;
+    this.userForm.setValue({
+      name: this.users[index].name,
+      tech: this.users[index].tech
+    })
+  }
+
+  onDelete(userId) {
+    this.http.delete('https://amproducts-a9503-default-rtdb.firebaseio.com/users/' + userId + '.json').subscribe(() => {
+      console.log();
+      this.getAllUsers();
+    })
+  }
 }
 
 

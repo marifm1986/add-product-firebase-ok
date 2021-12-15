@@ -17,8 +17,7 @@ export class ManageProductsComponent implements OnInit {
   editIndex: number = 0;
   totalPrice: number = 0;
   isSelected = false;
-  products: any[] = [
-  ]
+  products: any[] = [ ]
 
   ngOnInit(): void {
     this.getProducts();
