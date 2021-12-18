@@ -19,7 +19,8 @@
             </div>
         </form>
     </div>
-    <div class="col-md-6 card p-0">
+    <div class="col-md-6 card p-0 content_wrapper">
+        <span class="isLoading" *ngIf="!users.length">Loading...</span>
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>

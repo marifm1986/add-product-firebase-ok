@@ -26,6 +26,7 @@ export class ManageProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProducts();
+    this.getTotal();
   }
   onAddUser(productData: Products) {
     if(this.editMode){
@@ -65,11 +66,19 @@ export class ManageProductsComponent implements OnInit {
     if(this.editMode){
       this.productForm.setValue({
         name: this.products[index].name,
-        tech: this.products[index].rate
+        rate: this.products[index].rate
       })
 
     }
     
+  }
+
+  getTotal(){
+    let total = 0;
+    this.products.forEach(element => {
+      total += parseInt(element.rate);
+    });
+    return total;
   }
 
   onDelete(productId) {

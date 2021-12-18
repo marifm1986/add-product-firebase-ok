@@ -1,0 +1,36 @@
+.content_wrapper {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 15rem);
+    overflow: auto;
+    position: relative;
+    padding: 0;
+    .isLoading {
+        margin: auto;
+        color: #ccc;
+        font-size: 2rem;
+    }
+    .table {
+        margin: 0;
+    }
+    .number {
+        text-align: right;
+    }
+    thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+    tfoot {
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+        background: #fff;
+        font-weight: 500;
+        td {
+            &:nth-child(2) {
+                text-align: right;
+            }
+        }
+    }
+}
