@@ -1,5 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { User } from '../manage-user/user.model';
 import { ProductService } from '../services/product.service';
+import { UserService } from '../services/user.service';
+import { Products } from './products';
 
 @Component({
   selector: 'app-manage-products',
@@ -7,89 +13,69 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./manage-products.component.scss']
 })
 export class ManageProductsComponent implements OnInit {
-  @ViewChild('prodId') id!: ElementRef;
-  @ViewChild('name') name!: ElementRef;
-  @ViewChild('price') price!: ElementRef;
-
-  constructor(private service: ProductService) { }
-  dataTitle = 'Manage Products';
-  editMode: boolean = false
-  editIndex: number = 0;
-  totalPrice: number = 0;
+  @ViewChild('productForm') productForm!: NgForm;
+  @ViewChild('userName') name!: ElementRef;
+  @ViewChild('rate') rate!: ElementRef;
+  editMode = false
   isSelected = false;
-  products: any[] = [ ]
+  products: Products[] = []
+
+
+  constructor(private service: ProductService, private http: HttpClient) { }
+
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getAllProducts();
+  }
+  onAddUser(productData: Products) {
+    if(this.editMode){
+      // ...
+      this.editMode = false;
+    }else{
+      console.log(productData);
+      this.service.addProduct(productData).subscribe(data => {
+        console.log(data)
+        this.getAllProducts();
+      });
+    }
+    
+    this.productForm.reset();
   }
 
-  onAddProduct(prodId: any, name: any, price: any) {
-    if (this.editMode) {
-      this.products[this.editIndex] = {
-        id: prodId.value,
-        name: name.value,
-        price: price.value
-      }
-      this.editMode = false;
-      this.id.nativeElement.value = '';
-      this.name.nativeElement.value = '';
-      this.price.nativeElement.value = '';
-    } else {
-      this.products.push({
-        id: prodId.value,
-        name: name.value,
-        price: price.value
+  getAllProducts() {
+    this.service.getProduct()
+      .pipe(map(resData => {
+        console.log(resData);
+        const productArry: any[] = [];
+        for (const key in resData) {
+          if (resData.hasOwnProperty(key)) {
+            productArry.push({ productId: key, ...resData[key] });
+          }
+        }
+        return productArry;
+      }))
+      .subscribe(data => {
+        this.products = data;
+        console.log(data);
+      })
+  }
+
+  onEdit(productId, index) {
+    this.editMode = true;
+    if(this.editMode){
+      this.productForm.setValue({
+        name: this.products[index].name,
+        tech: this.products[index].rate
       })
 
-      prodId.value = '',
-        name.value = '',
-        price.value = ''
     }
-    this.onSaveProduct();
-  }
-  onSaveProduct() {
-    this.service.saveProduct(this.products).subscribe(
-      (res) => {console.log(res)
-        this.getTotalPrice();
-      },
-      (err) => console.log(err)
-    )
-
+    
   }
 
-  getProducts() {
-    this.service.getProducts().subscribe(
-      (res) => {
-        const data = JSON.stringify(res);
-        this.products = JSON.parse(data);
-        this.getTotalPrice();
-      },
-      (err) => console.log(err)
-    )
-
-
-  }
-  getTotalPrice(){
-    this.totalPrice = this.products.reduce((acc, val) => acc + val.price, 0);
-  }
-
-  onEdit(index: number, data: any) {
-    this.editMode = true;
-    this.editIndex = index;
-    console.log(this.products[index]);
-    this.id.nativeElement.value = this.products[index].id;
-    this.name.nativeElement.value = this.products[index].name;
-    this.price.nativeElement.value = this.products[index].price;
-    this.isSelected = data;
-    this.getTotalPrice();
-  }
-  onDelete(id: number) {
-    if (confirm("Are you sure to delete this product?")) {
-
-      this.products.splice(id, 1)
-      this.onSaveProduct();
-      this.getTotalPrice();
-    }
-
+  onDelete(productId) {
+    this.http.delete('https://amproducts-a9503-default-rtdb.firebaseio.com/products/' + productId + '.json').subscribe(() => {
+      console.log();
+      this.getAllProducts();
+    })
   }
 }
